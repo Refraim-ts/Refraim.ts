@@ -1,0 +1,28 @@
+{
+"name": "refraim-ts",
+"version": "1.0.0",
+"description": "",
+"main": "index.js",
+"bin": {
+  "refraim": "bin/refraim.ts"
+},
+"scripts": {
+  "cli": "tsx bin/refraim.ts"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
+  "dependencies": {
+    "cac": "^6.7.14",
+    "chalk": "^5.4.1",
+    "enquirer": "^2.4.1",
+    "execa": "^9.5.3",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
