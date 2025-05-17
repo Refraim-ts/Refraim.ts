@@ -1,15 +1,15 @@
 import { cac } from 'cac'
 import { version } from '../../package.json'
 import { registerNewCommand } from './commands/new'
-// 今後ここに他のコマンドも追加していきます
-// import { registerMakeFeatureCommand } from './commands/makeFeature'
+import { registerDevCommand } from './commands/dev'
+import { registerMakeFeatureCommand } from './commands/make'
 
 const cli = cac('refraim')
 
 // 🎯 各コマンドを登録
 registerNewCommand(cli)
-// registerMakeFeatureCommand(cli)
-
+registerDevCommand(cli)
+registerMakeFeatureCommand(cli)
 cli.help()
 cli.version(version)
 cli.parse()
