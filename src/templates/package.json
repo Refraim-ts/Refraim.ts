@@ -1,32 +1,25 @@
 {
-  "name": "refraim-ts",
+  "name": "my-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "bin": {
-    "refraim": "bin/refraim.ts"
-  },
   "scripts": {
-    "cli": "tsx bin/refraim.ts"
+    "dev": "vite"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
-    "cac": "^6.7.14",
-    "chalk": "^5.4.1",
-    "enquirer": "^2.4.1",
-    "execa": "^9.5.3",
-    "fs-extra": "^11.3.0",
-    "ora": "^8.2.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.15.18",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.4.1",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
   }
 }

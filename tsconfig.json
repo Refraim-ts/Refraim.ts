@@ -1,6 +1,8 @@
 // tsconfig.json
 {
   "compilerOptions": {
+        "jsx": "react-jsx",              // ← ✅ これが必要です！
+    "lib": ["DOM", "ESNext"],        // ← JSX/HTML型を含むため         // ← nodeの型も明示
     "target": "esnext",
     "module": "ESNext",
     "moduleResolution": "Node",

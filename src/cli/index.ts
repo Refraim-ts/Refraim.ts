@@ -1,14 +1,15 @@
-// src/cli/index.ts
 import { cac } from 'cac'
 import { version } from '../../package.json'
+import { registerNewCommand } from './commands/new'
+// 今後ここに他のコマンドも追加していきます
+// import { registerMakeFeatureCommand } from './commands/makeFeature'
 
 const cli = cac('refraim')
 
-cli.command('hello', 'Print welcome message').action(() => {
-  console.log('🧠 Hello from Refraim!')
-})
+// 🎯 各コマンドを登録
+registerNewCommand(cli)
+// registerMakeFeatureCommand(cli)
 
 cli.help()
 cli.version(version)
-
 cli.parse()
