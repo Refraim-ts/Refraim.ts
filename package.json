@@ -14,8 +14,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.2",
     "cac": "^6.7.14",
     "chalk": "^5.4.1",
+    "class-variance-authority": "^0.7.1",
     "enquirer": "^2.4.1",
     "execa": "^9.5.3",
     "fs-extra": "^11.3.0",
