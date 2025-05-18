@@ -1,10 +1,38 @@
 import fs from 'fs/promises'
 import path from 'path'
+import chalk from 'chalk'
+import ora from 'ora'
+
+const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1)
 
 export async function makeFeature(name: string) {
   const base = path.resolve(process.cwd(), 'src')
+  const spinner = ora(chalk.cyan(`🧬 Generating feature: ${name}...`)).start()
+
+  const log = (msg: string) => {
+    spinner.stop()
+    console.log(chalk.gray(msg))
+    spinner.start()
+  }
+
+  // --- schema ---
+  log(`📐 Creating schema...`)
+  const schemaDir = path.join(base, 'schema')
+  await fs.mkdir(schemaDir, { recursive: true })
+  await fs.writeFile(
+    path.join(schemaDir, `${name}.schema.ts`),
+    `// schema/${name}.schema.ts
+import { z } from 'zod'
+
+export const ${name}Schema = z.object({
+  message: z.string(),
+})
+    `.trim()
+  )
 
   // --- controller ---
+  log(`📦 Creating controller...`)
   const controllerDir = path.join(base, 'controller')
   await fs.mkdir(controllerDir, { recursive: true })
   await fs.writeFile(
@@ -23,6 +51,7 @@ export default {
   )
 
   // --- service ---
+  log(`⚙️  Creating service...`)
   const serviceDir = path.join(base, 'service')
   await fs.mkdir(serviceDir, { recursive: true })
   await fs.writeFile(
@@ -33,27 +62,25 @@ export function ${name}Service() {
 }
     `.trim()
   )
+
   // --- pages ---
-  function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
   const pagesDir = path.join(base, 'pages', name)
   await fs.mkdir(pagesDir, { recursive: true })
 
+  log(`🖼  Creating page...`)
   await fs.writeFile(
-  path.join(pagesDir, 'index.page.tsx'),
-  `// pages/${name}/index.page.tsx
+    path.join(pagesDir, 'index.page.tsx'),
+    `// pages/${name}/index.page.tsx
 import { usePageData } from '../../hooks/usePageData'
 
 export default function ${capitalize(name)}Page() {
   const data = usePageData<{ message: string }>()
   return <h1>{data.message}</h1>
 }
-  `.trim()
-)
+    `.trim()
+  )
 
-
-
+  log(`📋 Creating meta...`)
   await fs.writeFile(
     path.join(pagesDir, 'index.meta.ts'),
     `// pages/${name}/index.meta.ts
@@ -65,6 +92,7 @@ export const meta = {
     `.trim()
   )
 
+  log(`🔄 Creating loader...`)
   await fs.writeFile(
     path.join(pagesDir, 'index.loader.ts'),
     `// pages/${name}/index.loader.ts
@@ -75,19 +103,7 @@ export async function loader() {
 }
     `.trim()
   )
-  // --- schema ---
-  const schemaDir = path.join(base, 'schema')
-  await fs.mkdir(schemaDir, { recursive: true })
-  await fs.writeFile(
-    path.join(schemaDir, `${name}.schema.ts`),
-    `// schema/${name}.schema.ts
-import { z } from 'zod'
 
-export const ${name}Schema = z.object({
-  message: z.string(),
-})
-    `.trim()
-  )
-
-  console.log(`✅ Created feature: ${name}`)
+  spinner.succeed(chalk.green(`✨ Feature "${name}" created successfully.`))
+  console.log(chalk.bold(`✅ Created feature: ${name}\n`))
 }

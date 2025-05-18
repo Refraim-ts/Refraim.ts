@@ -1,7 +1,9 @@
 import path from 'path'
 import fs from 'fs/promises'
+import chalk from 'chalk'
+import ora from 'ora'
 import { existsSync } from 'fs'
-
+import { spawn } from 'child_process'
 const TEMPLATE_DIR = path.resolve(__dirname, '../templates')
 
 export async function createProject(projectName: string) {
@@ -13,10 +15,24 @@ export async function createProject(projectName: string) {
   }
 
   // 再帰的にテンプレートをコピー
-  await copyDir(TEMPLATE_DIR, targetPath)
+ const spinner = ora(chalk.cyan(`Creating project: ${projectName}`)).start()
 
-  console.log(`✅ Project "${projectName}" created!`)
-}
+await copyDir(TEMPLATE_DIR, targetPath)
+await new Promise((r) => setTimeout(r, 300)) // for suspense
+const rebuild = spawn('pnpm', ['rebuild', 'esbuild'], {
+  cwd: targetPath,
+  stdio: 'inherit',
+  shell: true,
+})
+// ステップごとに delay（任意）つけても良い
+
+rebuild.on('close', () => {
+  spinner.succeed(chalk.green(`✔ Project "${projectName}" is alive.`))
+  console.log(chalk.bold(`\n🧠 Structure has been born.`))
+  console.log(`\nNext steps:`)
+  console.log(chalk.cyan(`  cd ${projectName}`))
+  console.log(chalk.cyan(`  pnpm install && refraim dev\n`))
+})
 
 async function copyDir(src: string, dest: string) {
   await fs.mkdir(dest, { recursive: true })
@@ -34,4 +50,5 @@ async function copyDir(src: string, dest: string) {
       await fs.writeFile(destPath, content)
     }
   }
+}
 }
