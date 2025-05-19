@@ -1,6 +1,6 @@
-// pages/hello/index.meta.ts
+// pages/post/index.meta.ts
 export const meta = {
-  title: 'hello',
+  title: 'post',
   layout: 'dashboard',
   guard: 'auth',
 }

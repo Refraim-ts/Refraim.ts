@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardHeader, CardContent } from '../components/ui/card'
+import { Card, CardHeader, CardContent } from '../components/ui/card.tsx'
 import { motion } from 'framer-motion'
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
       >
         <Card>
           <CardHeader>
-            <h1 className="text-2xl font-bold">🎉 Hello, Refraim</h1>
+            <h1 className="text-2xl font-bold">🎉Your app is alive. Now kill it.</h1>
             <p className="text-sm text-muted-foreground">
               A fullstack framework where structure is the engine.
             </p>

@@ -1,4 +1,4 @@
-import { createProject } from '../../core/createProject'
+import { createProject } from '../../core/makeProject'
 
 export const registerNewCommand = (cli: import('cac').CAC) => {
   cli
