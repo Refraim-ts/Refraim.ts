@@ -1,23 +1,35 @@
+let posts = [
+  {
+    id: '1',
+    title: 'Hello from Refraim',
+    category: 'structure',
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    title: 'Structure is beautiful',
+    category: 'philosophy',
+    createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+  },
+  {
+    id: '3',
+    title: 'Type safety is freedom',
+    category: 'type',
+    createdAt: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
+  },
+]
+
 export function getPosts() {
-  console.log(getPosts.toString())
-  return [
-    {
-      id: '1',
-      title: 'Hello from Refraim',
-      createdAt: new Date().toISOString(),
-      category: 'structure',
-    },
-    {
-      id: '2',
-      title: 'Structure is beautiful',
-      createdAt: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
-      category: 'philosophy',
-    },
-    {
-      id: '3',
-      title: 'Type safety is freedom',
-      createdAt: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
-      category: 'type',
-    },
-  ]
+  return posts
+}
+
+export function addPost(data: { title: string; category?: string }) {
+  const post = {
+    id: (posts.length + 1).toString(),
+    title: data.title,
+    category: data.category,
+    createdAt: new Date().toISOString(),
+  }
+  posts = [post, ...posts]
+  return post
 }
